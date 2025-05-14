@@ -1,0 +1,57 @@
+﻿## VisualStudio
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+## Build results
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+
+## NuGet
+*.nupkg
+# The packages folder can be ignored because of Package Restore
+**/packages/*
+# except build/, which is used as an MSBuild target.
+!**/packages/build/
+# Uncomment if necessary however generally it will be regenerated when needed
+#!**/packages/repositories.config
+
+## ASP.NET Scaffolding
+ScaffoldingReadMe.txt
+
+## Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+## Folder config file
+Desktop.ini
+
+## Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+## VS Code settings (if usás este editor también)
+.vscode/
+
+## Others
+*.log
+*.tlog
+*.cache
+*.dbmdl
+*.pdb
+*.psess
+*.vsp
+*.vspscc
+*.vssscc
+*.tmp
+*.bak
+*.scc
+*.orig
+*.csproj.user
