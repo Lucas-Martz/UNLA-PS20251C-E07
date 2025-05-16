@@ -18,3 +18,36 @@ select,
 textarea {
     max-width: 280px;
 }
+
+#navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: padding 0.3s, background-color 0.3s;
+    z-index: 1000;
+}
+
+    #navbar.shrink {
+        padding: 5px 20px;
+        background-color: #ffffff;
+    }
+
+@media (max-width: 768px) {
+    .navbar-search {
+        display: none;
+    }
+
+    .navbar-nav li a {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+    /* ícono de menú */
+}
