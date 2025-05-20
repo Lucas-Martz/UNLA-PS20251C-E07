@@ -1,0 +1,12 @@
+@model UNLA_PS20251C_E07.Models.Hospedaje
+@{
+    ViewBag.Title = Model.Titulo;
+}
+
+<div class="container my-5">
+    <h2>@Model.Titulo</h2>
+    <img src="@Model.ImagenUrl" class="img-fluid rounded mb-4" style="max-height: 500px; object-fit: cover;" />
+    <p class="lead">@Model.Descripcion</p>
+    <p><strong>Ubicación:</strong> @Model.Ubicacion</p>
+    <a href="@Url.Action("Index", "Hospedaje")" class="btn btn-secondary">Volver</a>
+</div>

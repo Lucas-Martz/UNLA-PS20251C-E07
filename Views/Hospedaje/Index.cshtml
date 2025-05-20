@@ -1,0 +1,28 @@
+@model List<UNLA_PS20251C_E07.Models.Hospedaje>
+@{
+    ViewBag.Title = "Hospedajes";
+}
+
+<div class="container my-4">
+    <form method="get" class="form-inline justify-content-center mb-4">
+        <input type="text" name="q" class="form-control w-75 rounded-pill shadow-sm" placeholder="Buscar por título o ubicación" value="@Request.QueryString["q"]" />
+        <button type="submit" class="btn btn-primary ml-2 rounded-pill">Buscar</button>
+    </form>
+
+    <div class="row">
+        @foreach (var h in Model)
+        {
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm h-100">
+                    <img src="@h.ImagenUrl" class="card-img-top" alt="@h.Titulo" style="height: 250px; object-fit: cover;">
+                    <div class="card-body">
+                        <h5 class="card-title">@h.Titulo</h5>
+                        <p class="card-text">@h.Descripcion</p>
+                        <p class="text-muted"><i class="fas fa-map-marker-alt"></i> @h.Ubicacion</p>
+                        <a href="@Url.Action("Detalle", "Hospedaje", new { id = h.Id })" class="btn btn-outline-dark btn-sm">Ver más</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
