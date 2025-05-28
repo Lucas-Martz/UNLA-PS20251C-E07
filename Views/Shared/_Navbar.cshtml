@@ -1,20 +1,63 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="@Url.Action("Index", "Home")">MiApp</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContenido" aria-controls="navbarContenido" aria-expanded="false" aria-label="Alternar navegación">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+@{
+    var currentController = ViewContext.RouteData.Values["controller"].ToString();
+}
 
-    <div class="collapse navbar-collapse" id="navbarContenido">
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString() == "Home" ? "active" : "")">
-                <a class="nav-link" href="@Url.Action("Index", "Home")">Inicio</a>
-            </li>
-            <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString() == "Hospedaje" ? "active" : "")">
-                <a class="nav-link" href="@Url.Action("Index", "Hospedaje")">Hospedajes</a>
-            </li>
-            <li class="nav-item @(ViewContext.RouteData.Values["controller"].ToString() == "Usuario" ? "active" : "")">
-                <a class="nav-link" href="@Url.Action("Login", "Usuario")">Iniciar sesión</a>
-            </li>
-        </ul>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm py-3">
+    <div class="container">
+        <!-- Logo -->
+        <a class="navbar-brand d-flex align-items-center" href="@Url.Action("Index", "Home")">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/Airbnb_Logo_Bélo.svg" alt="Logo" class="d-inline-block align-top mr-2" style="height: 40px;" />
+            <strong>MiAirbnb</strong>
+        </a>
+
+        <!-- Botón hamburguesa -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarContenido" aria-controls="navbarContenido" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <!-- Contenido -->
+        <div class="collapse navbar-collapse" id="navbarContenido">
+
+            <!-- Navegación principal -->
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item @(currentController == "Home" ? "active" : "")">
+                    <a class="nav-link" href="@Url.Action("Index", "Home")"><i class="fas fa-home"></i> Inicio</a>
+                </li>
+                <li class="nav-item @(currentController == "Hospedaje" ? "active" : "")">
+                    <a class="nav-link" href="@Url.Action("Index", "Hospedaje")"><i class="fas fa-bed"></i> Hospedajes</a>
+                </li>
+                <li class="nav-item @(currentController == "Experiencias" ? "active" : "")">
+                    <a class="nav-link" href="@Url.Action("Index", "Experiencias")"><i class="fas fa-hotairballoon"></i> Experiencias</a>
+                </li>
+                <li class="nav-item @(currentController == "Servicios" ? "active" : "")">
+                    <a class="nav-link" href="@Url.Action("Index", "Servicios")"><i class="fas fa-concierge-bell"></i> Servicios</a>
+                </li>
+            </ul>
+
+            <!-- Buscador -->
+            <form class="form-inline mx-lg-4 my-2 my-lg-0 w-100" method="get" action="@Url.Action("Buscar", "Home")" style="max-width: 400px;">
+                <div class="input-group w-100">
+                    <input class="form-control" type="search" name="query" placeholder="¿A dónde vamos?" aria-label="Buscar">
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-light" type="submit">
+                            <i class="fas fa-search"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+
+            <!-- Usuario -->
+            <ul class="navbar-nav ml-lg-auto mt-2 mt-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("BecomeHost", "Home")">Convertite en anfitrion</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#"><i class="fas fa-globe"></i></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="@Url.Action("Login", "Usuario")"><i class="fas fa-user"></i> Iniciar sesión</a>
+                </li>
+            </ul>
+        </div>
     </div>
 </nav>

@@ -1,12 +1,38 @@
-@model UNLA_PS20251C_E07.Models.Hospedaje
+﻿@model UNLA_PS20251C_E07.Models.Hospedaje
+
 @{
     ViewBag.Title = Model.Titulo;
 }
 
 <div class="container my-5">
-    <h2>@Model.Titulo</h2>
-    <img src="@Model.ImagenUrl" class="img-fluid rounded mb-4" style="max-height: 500px; object-fit: cover;" />
-    <p class="lead">@Model.Descripcion</p>
-    <p><strong>Ubicaci�n:</strong> @Model.Ubicacion</p>
-    <a href="@Url.Action("Index", "Hospedaje")" class="btn btn-secondary">Volver</a>
+    <div class="row">
+        <div class="col-md-6">
+            <img src="@Model.ImagenUrl" class="img-fluid rounded shadow-sm" alt="@Model.Titulo" style="max-height: 450px; object-fit: cover;" />
+        </div>
+        <div class="col-md-6">
+            <h2 class="mb-3">@Model.Titulo</h2>
+            <p class="text-muted"><i class="fas fa-map-marker-alt"></i> @Model.Ubicacion</p>
+            <p>@Model.Descripcion</p>
+
+            <hr />
+
+            <p><strong><i class="fas fa-user-friends"></i> Capacidad:</strong> @Model.CapacidadPersonas personas</p>
+            <p><strong><i class="fas fa-dollar-sign"></i> Precio por noche:</strong> $@Model.PrecioPorNoche</p>
+
+            @if (Model.Servicios != null && Model.Servicios.Any())
+            {
+                <div class="mt-4">
+                    <h5>Servicios incluidos:</h5>
+                    <ul class="list-unstyled">
+                        @foreach (var servicio in Model.Servicios)
+                        {
+                            <li><i class="fas fa-check-circle text-success"></i> @servicio.Nombre</li>
+                        }
+                    </ul>
+                </div>
+            }
+
+            <a href="@Url.Action("Index", "Hospedaje")" class="btn btn-outline-secondary mt-4">← Volver al listado</a>
+        </div>
+    </div>
 </div>

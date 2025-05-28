@@ -1,0 +1,58 @@
+@model UNLA_PS20251C_E07.Models.Hospedaje
+
+@{
+    ViewBag.Title = "Nuevo hospedaje";
+    var servicios = ViewBag.Servicios as List<UNLA_PS20251C_E07.Models.Servicio>;
+}
+
+<h2 class="mb-4">Nuevo hospedaje</h2>
+
+@using (Html.BeginForm("Nuevo", "Hospedaje", FormMethod.Post))
+{
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.Titulo)
+        @Html.TextBoxFor(m => m.Titulo, new { @class = "form-control", placeholder = "Título del hospedaje" })
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.Ubicacion)
+        @Html.TextBoxFor(m => m.Ubicacion, new { @class = "form-control", placeholder = "Ubicación" })
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.Descripcion)
+        @Html.TextAreaFor(m => m.Descripcion, new { @class = "form-control", rows = 3, placeholder = "Descripción" })
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.ImagenUrl)
+        @Html.TextBoxFor(m => m.ImagenUrl, new { @class = "form-control", placeholder = "URL de la imagen" })
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.PrecioPorNoche)
+        @Html.TextBoxFor(m => m.PrecioPorNoche, new { @class = "form-control", placeholder = "Precio por noche", type = "number", step = "0.01" })
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.CapacidadPersonas)
+        @Html.TextBoxFor(m => m.CapacidadPersonas, new { @class = "form-control", placeholder = "Capacidad de personas", type = "number" })
+    </div>
+
+    <div class="form-group mb-4">
+        <label>Servicios disponibles</label>
+        @if (servicios != null && servicios.Any())
+        {
+            foreach (var servicio in servicios)
+            {
+                <div class="form-check">
+                    <input type="checkbox" name="serviciosSeleccionados" value="@servicio.Id" class="form-check-input" id="servicio_@servicio.Id" />
+                    <label class="form-check-label" for="servicio_@servicio.Id">@servicio.Nombre</label>
+                </div>
+            }
+        }
+    </div>
+
+    <button type="submit" class="btn btn-primary">Crear hospedaje</button>
+    <a href="@Url.Action("Index", "Hospedaje")" class="btn btn-secondary ms-2">Cancelar</a>
+}
