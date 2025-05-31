@@ -32,7 +32,14 @@
                 </div>
             }
 
+
+
             <a href="@Url.Action("Index", "Hospedaje")" class="btn btn-outline-secondary mt-4">← Volver al listado</a>
+
+            <a href="@Url.Action("Nueva", "Reserva", new { id = Model.Id })" class="btn btn-success mt-4">
+                <i class="fas fa-calendar-check"></i> Reservar ahora
+            </a>
+
         </div>
     </div>
 </div>

@@ -27,7 +27,7 @@
                     <a class="nav-link" href="@Url.Action("Index", "Hospedaje")"><i class="fas fa-bed"></i> Hospedajes</a>
                 </li>
                 <li class="nav-item @(currentController == "Experiencias" ? "active" : "")">
-                    <a class="nav-link" href="@Url.Action("Index", "Experiencias")"><i class="fas fa-hotairballoon"></i> Experiencias</a>
+                    <a class="nav-link" href="@Url.Action("Index", "Experiencias")"><i class="fas fa-globe-americas"></i> Experiencias</a>
                 </li>
                 <li class="nav-item @(currentController == "Servicios" ? "active" : "")">
                     <a class="nav-link" href="@Url.Action("Index", "Servicios")"><i class="fas fa-concierge-bell"></i> Servicios</a>
@@ -35,29 +35,43 @@
             </ul>
 
             <!-- Buscador -->
-            <form class="form-inline mx-lg-4 my-2 my-lg-0 w-100" method="get" action="@Url.Action("Buscar", "Home")" style="max-width: 400px;">
+            <form class="form-inline my-2 my-lg-0 mx-lg-4" method="get" action="@Url.Action("Index", "Hospedaje")" style="max-width: 400px; width: 100%;">
                 <div class="input-group w-100">
-                    <input class="form-control" type="search" name="query" placeholder="¿A dónde vamos?" aria-label="Buscar">
+                    <input type="search"
+                           name="q"
+                           class="form-control border-0 shadow-sm rounded-start"
+                           placeholder="¿A dónde vamos?"
+                           aria-label="Buscar" />
                     <div class="input-group-append">
-                        <button class="btn btn-outline-light" type="submit">
+                        <button class="btn btn-light border shadow-sm rounded-end" type="submit">
                             <i class="fas fa-search"></i>
                         </button>
                     </div>
                 </div>
             </form>
 
+
             <!-- Usuario -->
-            <ul class="navbar-nav ml-lg-auto mt-2 mt-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link" href="@Url.Action("BecomeHost", "Home")">Convertite en anfitrion</a>
+            <ul class="navbar-nav align-items-center ml-lg-auto">
+                <li class="nav-item mx-2">
+                    <a class="nav-link d-flex flex-column align-items-center" href="@Url.Action("BecomeHost", "Home")">
+                        <i class="fas fa-door-open mb-1"></i>
+                        <span style="font-size: 0.85rem; text-align: center;">Convertite en anfitrión</span>
+                    </a>
+
                 </li>
-                <li class="nav-item">
+                <li class="nav-item mx-2">
                     <a class="nav-link" href="#"><i class="fas fa-globe"></i></a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="@Url.Action("Login", "Usuario")"><i class="fas fa-user"></i> Iniciar sesión</a>
+                <li class="nav-item mx-2">
+                    <a class="nav-link d-flex flex-column align-items-center" href="@Url.Action("Login", "Usuario")">
+                        <i class="fas fa-user mb-1"></i>
+                        Iniciar sesión
+                    </a>
                 </li>
             </ul>
+
+
         </div>
     </div>
 </nav>

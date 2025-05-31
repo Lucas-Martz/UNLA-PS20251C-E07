@@ -1,0 +1,96 @@
+﻿@model UNLA_PS20251C_E07.Models.Reserva
+
+@{
+    ViewBag.Title = "Nueva Reserva";
+    var precioPorNoche = ViewBag.PrecioPorNoche ?? 0m;
+    var precioPorNocheRaw = Convert.ToDecimal(precioPorNoche);
+}
+
+<h2>Reserva para: @ViewBag.TituloHospedaje</h2>
+
+@using (Html.BeginForm("Nueva", "Reserva", FormMethod.Post, new { id = "formReserva" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(m => m.HospedajeId)
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.NombreCliente)
+        @Html.TextBoxFor(m => m.NombreCliente, new { @class = "form-control", placeholder = "Tu nombre" })
+        @Html.ValidationMessageFor(m => m.NombreCliente)
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.EmailCliente)
+        @Html.TextBoxFor(m => m.EmailCliente, new { @class = "form-control", placeholder = "Tu email" })
+        @Html.ValidationMessageFor(m => m.EmailCliente)
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.FechaInicio)
+        @Html.TextBoxFor(m => m.FechaInicio, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date", id = "fechaInicio" })
+        @Html.ValidationMessageFor(m => m.FechaInicio)
+    </div>
+
+    <div class="form-group mb-3">
+        @Html.LabelFor(m => m.FechaFin)
+        @Html.TextBoxFor(m => m.FechaFin, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date", id = "fechaFin" })
+        @Html.ValidationMessageFor(m => m.FechaFin)
+    </div>
+
+    <!-- Info de precios -->
+    <div id="infoPrecios" class="alert alert-info" style="display:none;">
+        <strong>Precio por noche:</strong> $<span id="precioPorNocheTexto"></span><br />
+        <strong>Total:</strong> $<span id="precioTotalTexto"></span>
+        <input type="hidden" id="precioPorNoche" value="@precioPorNocheRaw.ToString("0.##").Replace(",", ".")" />
+    </div>
+
+    <!-- Botones -->
+<div class="mt-3">
+    <button type="button" id="btnAceptar" class="btn btn-success">Aceptar</button>
+    <button type="button" id="btnActualizar" class="btn ms-2" style="display:none; background-color: #e0a800; color: black;" title="Actualizar Fechas">
+        🔁 Actualizar Fechas
+    </button>
+
+
+    <button type="submit" id="btnConfirmar" class="btn btn-primary" style="display:none;">Confirmar Reserva</button>
+    <a href="@Url.Action("Detalle", "Hospedaje", new { id = Model.HospedajeId })" class="btn btn-secondary ms-2">Cancelar</a>
+</div>
+}
+
+@section Scripts {
+    <script>
+        const formateador = new Intl.NumberFormat("es-AR");
+
+        function calcularYMostrarTotal() {
+            const inicio = new Date(document.getElementById("fechaInicio").value);
+            const fin = new Date(document.getElementById("fechaFin").value);
+            const precioPorNoche = parseFloat(document.getElementById("precioPorNoche").value);
+
+            const diferencia = (fin - inicio) / (1000 * 60 * 60 * 24); // días
+
+            if (diferencia > 0) {
+                const total = diferencia * precioPorNoche;
+
+                document.getElementById("precioPorNocheTexto").textContent = formateador.format(precioPorNoche);
+                document.getElementById("precioTotalTexto").textContent = formateador.format(total);
+
+                document.getElementById("infoPrecios").style.display = "block";
+                document.getElementById("btnAceptar").style.display = "none";
+                document.getElementById("btnConfirmar").style.display = "inline-block";
+                document.getElementById("btnActualizar").style.display = "inline-block";
+            } else {
+                alert("La fecha de fin debe ser posterior a la de inicio.");
+            }
+        }
+
+        function reiniciarFormulario() {
+            document.getElementById("infoPrecios").style.display = "none";
+            document.getElementById("btnAceptar").style.display = "inline-block";
+            document.getElementById("btnConfirmar").style.display = "none";
+            document.getElementById("btnActualizar").style.display = "none";
+        }
+
+        document.getElementById("btnAceptar").addEventListener("click", calcularYMostrarTotal);
+        document.getElementById("btnActualizar").addEventListener("click", reiniciarFormulario);
+    </script>
+}

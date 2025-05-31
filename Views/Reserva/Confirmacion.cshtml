@@ -1,0 +1,23 @@
+@model UNLA_PS20251C_E07.Models.Reserva
+
+@{
+    ViewBag.Title = "Reserva Confirmada";
+
+    var dias = (Model.FechaFin - Model.FechaInicio).Days;
+    decimal precioPorNoche = ViewBag.PrecioPorNoche ?? 0m;
+    var total = dias > 0 ? dias * precioPorNoche : 0;
+}
+
+<div class="alert alert-success mt-4">
+    <h4>¡Reserva Confirmada!</h4>
+    <p>Gracias, @Model.NombreCliente. Tu reserva para <strong>@ViewBag.TituloHospedaje</strong> fue realizada con éxito.</p>
+
+    <p><strong>Desde:</strong> @Model.FechaInicio.ToString("dd/MM/yyyy") <strong>hasta:</strong> @Model.FechaFin.ToString("dd/MM/yyyy")</p>
+
+    <p><strong>Total gastado:</strong> $@total.ToString("N2")</p>
+
+    <p>Se envió un comprobante de la reserva al correo <strong>@Model.EmailCliente</strong>.</p>
+
+    <a href="@Url.Action("Detalle", "Hospedaje", new { id = Model.HospedajeId })" class="btn btn-primary mt-3">Volver al hospedaje</a>
+    <a href="@Url.Action("Index", "Hospedaje")" class="btn btn-secondary mt-3 ms-2">Volver al listado</a>
+</div>

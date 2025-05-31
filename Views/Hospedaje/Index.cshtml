@@ -4,25 +4,40 @@
 }
 
 <div class="container my-4">
+    <!-- Formulario de búsqueda -->
     <form method="get" class="form-inline justify-content-center mb-4">
-        <input type="text" name="q" class="form-control w-75 rounded-pill shadow-sm" placeholder="Buscar por título o ubicación" value="@Request.QueryString["q"]" />
+        <input type="text"
+               name="q"
+               class="form-control w-75 rounded-pill shadow-sm"
+               placeholder="Buscar por título o ubicación"
+               value="@Request.QueryString["q"]" />
         <button type="submit" class="btn btn-primary ml-2 rounded-pill">Buscar</button>
     </form>
 
+    <!-- Resultados de hospedajes -->
     <div class="row">
-        @foreach (var h in Model)
+        @if (!Model.Any())
         {
-            <div class="col-md-4 mb-4">
-                <div class="card shadow-sm h-100">
-                    <img src="@h.ImagenUrl" class="card-img-top" alt="@h.Titulo" style="height: 250px; object-fit: cover;">
-                    <div class="card-body">
-                        <h5 class="card-title">@h.Titulo</h5>
-                        <p class="card-text">@h.Descripcion</p>
-                        <p class="text-muted"><i class="fas fa-map-marker-alt"></i> @h.Ubicacion</p>
-                        <a href="@Url.Action("Detalle", "Hospedaje", new { id = h.Id })" class="btn btn-outline-dark btn-sm">Ver más</a>
+            <div class="col-12 text-center">
+                <p class="text-muted">No se encontraron hospedajes que coincidan con la búsqueda.</p>
+            </div>
+        }
+        else
+        {
+            foreach (var h in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <img src="@h.ImagenUrl" class="card-img-top" alt="@h.Titulo" style="height: 250px; object-fit: cover;">
+                        <div class="card-body">
+                            <h5 class="card-title">@h.Titulo</h5>
+                            <p class="card-text">@h.Descripcion</p>
+                            <p class="text-muted"><i class="fas fa-map-marker-alt"></i> @h.Ubicacion</p>
+                            <a href="@Url.Action("Detalle", "Hospedaje", new { id = h.Id })" class="btn btn-outline-dark btn-sm">Ver más</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            }
         }
     </div>
 </div>
